@@ -3,8 +3,27 @@ GET http://localhost:3000
 
 ###
 
-POST http://localhost:3000/posts
+GET http://localhost:3000/posts
 
 ###
 
-DELETE http://localhost:3000/posts
+GET http://localhost:3000/posts/67476c395dd298c9d221d83e
+
+###
+
+GET http://localhost:3000/posts?owner=sss
+
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title": "Hello World",
+    "content": "s",
+    "owner": "sss"
+}
+
+###
+
+DELETE http://localhost:3000/posts/123123123
