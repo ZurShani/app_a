@@ -1,5 +1,6 @@
 const Posts = require("../models/posts_model");
 const { ObjectId } = require("mongodb");
+
 const createPost = (req, res) => {
   console.log(req.body);
   Posts.create(req.body)
@@ -45,8 +46,19 @@ const getPostById = async (req, res) => {
   }
 };
 
-const deletePost = (req, res) => {
-  res.send("Delete Post");
+const deletePost = async (req, res) => {
+  const postId = req.params.id;
+  await Posts.findByIdAndDelete(postId)
+    .then((post) => {
+      if (post) {
+        return res.status(200).send("Post deleted");
+      } else {
+        return res.status(404).send("Post not found");
+      }
+    })
+    .catch((error) => {
+      return res.status(400).send(error.message);
+    });
 };
 
 module.exports = { createPost, getAllPosts, deletePost, getPostById };
