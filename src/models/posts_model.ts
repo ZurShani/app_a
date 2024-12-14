@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const postSchema = new Schema({
   title: String,
@@ -6,4 +6,4 @@ const postSchema = new Schema({
   owner: String,
 });
 const Posts = mongoose.model("Post", postSchema);
-module.exports = Posts;
+export default Posts;

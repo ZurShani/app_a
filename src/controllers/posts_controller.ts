@@ -1,7 +1,7 @@
-const Posts = require("../models/posts_model");
-const { ObjectId } = require("mongodb");
+import Posts from "../models/posts_model";
+import { Request, Response } from "express";
 
-const createPost = (req, res) => {
+const createPost = (req: Request, res: Response) => {
   console.log(req.body);
   Posts.create(req.body)
     .then((post) => {
@@ -12,7 +12,7 @@ const createPost = (req, res) => {
     });
 };
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = async (req: Request, res: Response) => {
   const filter = req.query;
   console.log(filter);
   try {
@@ -28,7 +28,7 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const getPostById = async (req, res) => {
+const getPostById = async (req: Request, res: Response) => {
   const id = req.params.id;
   if (id) {
     try {
@@ -39,14 +39,14 @@ const getPostById = async (req, res) => {
         return res.status(404).send("Post not found");
       }
     } catch (error) {
-      return res.status(400).send(error.message);
+      return res.status(400).send((error as Error).message);
     }
   } else {
     return res.status(400).send("Invalid ID");
   }
 };
 
-const deletePost = async (req, res) => {
+const deletePost = async (req: Request, res: Response) => {
   const postId = req.params.id;
   await Posts.findByIdAndDelete(postId)
     .then((post) => {
@@ -61,4 +61,4 @@ const deletePost = async (req, res) => {
     });
 };
 
-module.exports = { createPost, getAllPosts, deletePost, getPostById };
+export default { createPost, getAllPosts, deletePost, getPostById };
